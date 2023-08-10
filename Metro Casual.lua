@@ -181,30 +181,6 @@ local B = Y.Toggle({
 	Enabled = false
 })
 
-
-local B = Z.Toggle({
-	Text = "Auto Grab",
-	Callback = function(Value)
-	    if Value then
-	        _G.AutoGrab = true
-	        while _G.AutoGrab == true do
-	            wait(0.1)
-	            for i,v in pairs(workspace.World.Debris.Stores:GetDescendants()) do
-	                if v:FindFirstChildOfClass("Highlight") and v:FindFirstChildOfClass("Highlight").FillTransparency ~= 1 then
-	               
-	                    fireproximityprompt(v.ProximityPrompt,math.huge)
-	             
-	                end
-	            end
-	        end
-	    else
-	        _G.AutoGrab = false
-
-	    end
-	end,
-	Enabled = false
-})
-
 local B = Z.Toggle({
 	Text = "Auto Sell",
 	Callback = function(Value)

@@ -1,0 +1,200 @@
+local Cloth_Table = {
+    ["Epic"] = {
+        "13118563705", "13117322111", "12849806391", "13214910361", "13121694238", 
+        "8509230330", "11231715498", "13214898787", "13122216180", "12238831860"
+    },
+    ["Legendary"] = {
+        "11399187402", "13023747678", "13686174169", "6406870867", "6492846738", 
+        "5219845999", "8286855189", "11235784185", "16096601175", "12866275108"
+    },
+    ["Mythic"] = {
+        "15373237003", "13118233820", "14045339965", "9743673456", "13132377517", 
+        "14617460813", "11624442171", "6434833836", "7713824539", "169222868", 
+        "11849088400", "14067920173", "5081906813"
+    },
+    ["Ultimate"] = {
+        "13783114776", "15092420593", "15393383586", "13783120680", "15091951529"
+    }
+}
+
+local Color_Table = {
+    ["Epic"] = Color3.fromRGB(240,10,240),
+    ["Legendary"] = Color3.fromRGB(245, 245, 2),
+    ["Mythic"] = Color3.fromRGB(245, 0, 106),
+    ["Ultimate"] = Color3.fromRGB(0, 251, 255)
+}
+
+local Toggle_Table = {
+    ["Epic"] = false, 
+    ["Legendary"] = false,
+    ["Mythic"] = false,
+    ["Ultimate"] = false
+}
+
+function DrawEsp(cloth, color)
+    local Draw = Instance.new("BoxHandleAdornment")
+    Draw.Parent = cloth
+    Draw.Adornee = cloth
+    Draw.Color3 = color
+    Draw.AlwaysOnTop = true
+    Draw.ZIndex = 0
+    Draw.Transparency = 0.1
+    Draw.Size = Vector3.new(1, 2, 0.2)
+end
+
+_G.Esp = false
+_G.Auto_Grab = false
+
+local lp = game:GetService("Players").LocalPlayer
+
+local Clothing = workspace:WaitForChild("Clothing")
+
+
+local function get_text()
+    local Label =  workspace:WaitForChild("MainTimerForNew").Part.SurfaceGui.TextLabel
+
+    if Label then
+        return Label.Text
+    else
+        return false
+    end 
+end 
+
+local function getbp_item()
+    local Bp = lp.Backpack
+
+    if Bp then
+        return #Bp:GetChildren()
+    else 
+        return false
+    end
+end 
+
+local function Update_Esp()
+
+    for _, item in pairs(Clothing:GetDescendants()) do
+        if item:FindFirstChild("Id") then
+            local idValue = tostring(item.Id.Value)
+            local bz = item.bzi
+
+            if bz.Value == true and item:FindFirstChild("BoxHandleAdornment") then
+                item.BoxHandleAdornment:Destroy()
+            end
+
+            if bz.Value == false then
+                for rarity, color in pairs(Color_Table) do
+                    if table.find(Cloth_Table[rarity], idValue) and Toggle_Table[rarity] then
+
+                        if _G.Auto_Grab and item:FindFirstChild("Mouse") and item.Mouse:FindFirstChildOfClass("ClickDetector") and getbp_item() < 6 then 
+                            fireclickdetector(item.Mouse.ClickDetector)
+                        end 
+
+                        if item:FindFirstChild("BoxHandleAdornment") == nil then
+                            DrawEsp(item, color)
+                        end 
+                        
+                        break
+                    end
+                end
+            end
+
+        end
+    end
+end
+
+
+
+
+local Library = loadstring(game:GetObjects("rbxassetid://7657867786")[1].Source)() -- Pepsi's UI Library
+
+--// Frame
+
+local MainFrame = Library:CreateWindow({
+	Name = "Casual Metro",
+	Themeable = {
+		Image = "7059346386",
+		Info = "Made by (Lerazz)\nPowered by Pepsi's UI Library",
+		Credit = false
+	},
+	Background = "",
+	Theme = [[{"__Designer.Colors.section":"ADC7FF","__Designer.Colors.topGradient":"1B242F","__Designer.Settings.ShowHideKey":"Enum.KeyCode.RightShift","__Designer.Colors.otherElementText":"54637D","__Designer.Colors.hoveredOptionBottom":"38667D","__Designer.Background.ImageAssetID":"","__Designer.Colors.unhoveredOptionTop":"407495","__Designer.Colors.innerBorder":"2C4168","__Designer.Colors.unselectedOption":"4E6EA0","__Designer.Background.UseBackgroundImage":true,"__Designer.Files.WorkspaceFile":"Aimbot V2","__Designer.Colors.main":"23A0FF","__Designer.Colors.outerBorder":"162943","__Designer.Background.ImageColor":"FFFFFF","__Designer.Colors.tabText":"C9DFF1","__Designer.Colors.elementBorder":"111D26","__Designer.Colors.sectionBackground":"0E141C","__Designer.Colors.selectedOption":"558AC2","__Designer.Colors.background":"11182A","__Designer.Colors.bottomGradient":"202B42","__Designer.Background.ImageTransparency":95,"__Designer.Colors.hoveredOptionTop":"4885A0","__Designer.Colors.elementText":"7692B8","__Designer.Colors.unhoveredOptionBottom":"5471C4"}]]
+})
+
+
+local GeneralTab = MainFrame:CreateTab({
+	Name = "General"
+})
+local VisualSection = GeneralTab:CreateSection({
+	Name = "Visual"
+})
+
+
+VisualSection:AddToggle({Name = "Esp / Enable Esp",Flag = "2",
+	Callback = function(value)
+		if value then 
+			_G.Esp = true 
+            while _G.Esp do
+                Update_Esp()
+                task.wait(3)
+            end
+		else
+			_G.Esp = false
+		end 
+	end    
+})
+
+VisualSection:AddToggle({Name = "Auto-Grab",Flag = "7",
+	Callback = function(value)
+		if value then 
+			_G.Auto_Grab = true 
+		else
+			_G.Auto_Grab = false
+		end 
+	end    
+})
+
+
+VisualSection:AddLabel({
+	Text = "-----Esp Whitelist-----"
+})
+
+
+VisualSection:AddToggle({Name = "Epic",Flag = "3",
+	Callback = function(value)
+		if value then 
+            Toggle_Table["Epic"] = true
+		else
+			Toggle_Table["Epic"] = false
+		end 
+	end    
+})
+
+VisualSection:AddToggle({Name = "Mythic",Flag = "4",
+	Callback = function(value)
+		if value then 
+            Toggle_Table["Mythic"] = true
+		else
+			Toggle_Table["Mythic"] = false
+		end 
+	end    
+})
+
+VisualSection:AddToggle({Name = "Legendary",Flag = "5",
+	Callback = function(value)
+		if value then 
+            Toggle_Table["Legendary"] = true
+		else
+			Toggle_Table["Legendary"] = false
+		end 
+	end    
+})
+
+VisualSection:AddToggle({Name = "Ultimate",Flag = "6",
+	Callback = function(value)
+		if value then 
+            Toggle_Table["Ultimate"] = true
+		else
+			Toggle_Table["Ultimate"] = false
+		end 
+	end    
+})

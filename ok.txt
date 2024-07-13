@@ -13,9 +13,13 @@ local Cloth_Table = {
         "11849088400", "14067920173", "5081906813"
     },
     ["Ultimate"] = {
-        "13783114776", "15092420593", "15393383586", "13783120680", "15091951529"
+        "13783114776", "15092420593", "15393383586", "13783120680", "15091951529", 
+        "11881332984", "14160465748", "13668016225", "16310782452"
     }
 }
+
+
+
 
 local Color_Table = {
     ["Epic"] = Color3.fromRGB(240,10,240),
@@ -81,7 +85,9 @@ local function Update_Esp()
                 item.BoxHandleAdornment:Destroy()
             end
 
-            if bz.Value == false then
+            if bz.Value == false then 
+            
+
                 for rarity, color in pairs(Color_Table) do
                     if table.find(Cloth_Table[rarity], idValue) and Toggle_Table[rarity] then
 
@@ -96,10 +102,12 @@ local function Update_Esp()
                         break
                     end
                 end
-            end
 
+            end
+          
         end
     end
+    
 end
 
 
@@ -126,6 +134,11 @@ local GeneralTab = MainFrame:CreateTab({
 })
 local VisualSection = GeneralTab:CreateSection({
 	Name = "Visual"
+})
+
+local InfoSection = GeneralTab:CreateSection({
+	Name = "Info",
+    Side = "Right"
 })
 
 
@@ -197,4 +210,40 @@ VisualSection:AddToggle({Name = "Ultimate",Flag = "6",
 			Toggle_Table["Ultimate"] = false
 		end 
 	end    
+})
+
+VisualSection:AddLabel({
+	Text = "Exploits / OP / Ban Chance!!!"
+})
+
+VisualSection:AddButton({Name = "Free Macvin pass + 30 k",Flag = "6",
+	Callback = function(value)
+        game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, 1872998790, true)
+	end    
+})
+
+
+
+VisualSection:AddButton({Name = "Free Spider pass + 500k Rub",Flag = "6",
+	Callback = function(value)
+        game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, 1872998670, true)	
+    end    
+})
+
+
+
+
+
+---
+
+InfoSection:AddLabel({
+	Text = "[+]:Exploits"
+})
+
+InfoSection:AddLabel({
+	Text = "[+]:Added New Ultimates"
+})
+
+InfoSection:AddLabel({
+	Text = "[*]:Soon Auto Sell"
 })

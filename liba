@@ -289,7 +289,7 @@ do
 		Objects["text"].BackgroundTransparency = 1
 		Objects["text"].TextXAlignment = Enum.TextXAlignment.Left
 		Objects["text"].BorderSizePixel = 0
-		Objects["text"].TextSize = 12
+		Objects["text"].TextSize = 16
 		Objects["text"].TextTransparency = 1
 		Objects["text"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Objects["text"].Parent = Objects["notification"]
@@ -466,7 +466,7 @@ do
         Objects["text"].Position = UDim2.new(0, 28, 0, 0)
         Objects["text"].BorderSizePixel = 0
         Objects["text"].AutomaticSize = Enum.AutomaticSize.X
-        Objects["text"].TextSize = 12
+        Objects["text"].TextSize = 16
         Objects["text"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         Objects["text"].Parent = Objects["watermark"]
 
@@ -1172,7 +1172,7 @@ do
 		Objects["toggle"].Name = Toggle.Name
 		Objects["toggle"].Size = UDim2.new(0, 200, 0, 12)
 		Objects["toggle"].BorderSizePixel = 0
-		Objects["toggle"].TextSize = 14
+		Objects["toggle"].TextSize = 16
 		Objects["toggle"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 		Objects["toggle"].Parent = Toggle.Section.Objects.Main
 
